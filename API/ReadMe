@@ -1,0 +1,195 @@
+# 🔒 PDF Redaction API (YOLO + OCR)
+
+A production-ready API that automatically redacts sensitive information from PDFs by:
+
+* 👤 Detecting & masking faces using YOLOv8
+* 🔢 Detecting & masking Aadhaar numbers using OCR (Tesseract)
+* 📄 Returning a fully redacted PDF
+
+---
+
+## 🚀 Features
+
+* Upload PDF via API
+* Face detection using YOLO model
+* Aadhaar number masking using OCR
+* Secure API key authentication
+* Returns processed PDF directly
+* Partially deployable over local machine and later can be live using port forwarding like ngrok or cloudflare 
+* If need to deploy over cloud -need good GPU, RAM, Processing and CPU. (Cloud like AWS, GCP, Render etc)
+
+---
+
+## 🧠 Project Architecture
+
+```
+Client Request
+    ↓
+FastAPI Endpoint (/mask-pdf)
+    ↓
+PDF → Images (pdf2image)
+    ↓
+YOLO Face Detection + Masking
+    ↓
+OCR Aadhaar Detection + Masking
+    ↓
+Rebuild PDF
+    ↓
+Return Masked PDF
+```
+
+---
+
+## 📁 Project Structure
+
+```
+project/
+│
+├── main.py                # FastAPI app (main backend)
+├── requirements.txt       # Python dependencies
+├── README.md              # Project documentation
+└── yolov8n-face.pt        # Available in this repository
+```
+
+---
+
+## ⚙️ Installation (Local)
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/aryapathakxii/Masking_Project/API.git
+cd API
+```
+
+---
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 3. Install System Dependencies
+
+#### Windows/Localhost
+
+# 3.1: Download Poppler (Used to convert pdf into images)
+Poppler (for pdf2image)
+Download from: https://github.com/oschwartz10612/poppler-windows
+(download .zip file and unzip it in C drive and mention the path in your code for windows user)
+Set path in code:
+
+from pdf2image import convert_from_path
+poppler_path = r"C:\poppler\poppler-25.12.0\Library\bin"
+pages_1 = convert_from_path(r"D:\AFPL_Project_ML\ML_Interview_Material\test_set.pdf", poppler_path=poppler_path)
+
+# 3.2: Download Tesseract OCR (Used to detect text in the image and mask it as per defined pattern)
+Tesseract OCR
+Download from: https://github.com/tesseract-ocr/tesseract
+(download .zip file and unzip it in C drive and mention the path in your code for windows user)
+Set path in code:
+
+import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+---
+
+### 4. Run API
+
+```bash
+uvicorn main:app --reload
+```
+
+---
+
+### 5. Open Swagger UI
+
+```
+http://127.0.0.1:8000/mask-pdf
+```
+
+---
+
+## 🔑 API Usage
+
+### Endpoint:
+
+```
+POST /mask-pdf
+```
+
+### Headers:
+
+```
+x-api-key: mysecret12122000
+```
+
+---
+
+### Python Example:
+
+```python
+    import requests
+
+    url = "http://127.0.0.1:8000/mask-pdf"
+    headers = {"x-api-key":"mysecret12122000"}
+    files = {"file": open("development_set.pdf","rb")}
+    r = requests.post(url, headers=headers, files=files)
+    with open("output.pdf","wb") as f:
+        f.write(r.content)
+    print("Masked PDF saved!")
+```
+
+---
+
+## 🤖 Model Handling
+
+* The YOLO face detection model is stored in the repository
+
+```python
+MODEL_PATH = "yolov8n-face.pt"
+```
+
+---
+
+## 🌍 Free Deployment
+
+You can deploy this API for free using:
+
+* Render (recommended)
+* Railway
+* Fly.io
+* Ngrok (Port Forwarding)
+* Cloudflare (Port Forwarding)
+
+## ⚠️ Limitations
+
+* OCR accuracy depends on image quality
+* May detect any 12-digit number as Aadhaar
+* First API call is slow (model download)
+* Large PDFs increase processing time
+
+---
+
+## 🚀 Future Improvements
+
+* Aadhaar validation using Verhoeff algorithm
+* GPU acceleration for faster YOLO inference
+* Advanced OCR models (EasyOCR / TrOCR)
+* API key management system
+* Usage tracking & rate limiting
+
+---
+
+## 👨‍💻 Author
+
+Developed by **Arya Pathak**
+
+---
+
+## 📜 License
+
+This project is for educational and demonstration purposes.
