@@ -84,7 +84,7 @@ Set path in code:
 
 from pdf2image import convert_from_path
 poppler_path = r"C:\poppler\poppler-25.12.0\Library\bin"
-pages_1 = convert_from_path(r"D:\AFPL_Project_ML\ML_Interview_Material\test_set.pdf", poppler_path=poppler_path)
+pages_1 = convert_from_path(r"D:\Arya_User\OCR_Project\test_set.pdf", poppler_path=poppler_path)
 
 # 3.2: Download Tesseract OCR (Used to detect text in the image and mask it as per defined pattern)
 Tesseract OCR
