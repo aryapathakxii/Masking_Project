@@ -12,7 +12,7 @@ import io
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 poppler_path = r"C:\poppler\poppler-25.12.0\Library\bin"
 
-model = YOLO(r"D:\AFPL_Project_ML\ML_Interview_Material\yolov8m-face.pt")
+model = YOLO(r"D:\Arya_User\Masking_Project\yolov8m-face.pt")
 
 # ---------------- YOLO MASKING ----------------
 def detect_and_mask_faces_yolo(pages_1):
@@ -134,7 +134,7 @@ st.set_page_config(
     layout="wide"
 )
 st.title("PDF Redaction Tool (YOLO + OCR)")
-st.image(r"D:\AFPL_Project_ML\ML_Interview_Material\output.png")
+st.image(r"D:\Arya_User\Masking_Project\output.png")
 
 uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
 
