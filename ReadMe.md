@@ -10,7 +10,8 @@ The tool provides a simple Streamlit web interface where users can upload a PDF 
 
 # 🏗️ Architecture
 
-<img width="1408" height="768" alt="Project_Architecture" src="https://github.com/user-attachments/assets/0e1f730e-5521-4a0d-9cd7-fc4039a6475c" />
+<img width="1408" height="768" alt="Project_Architecture" src="https://github.com/user-attachments/assets/070da6b1-742d-494c-b088-dd9b48ca2483" />
+
 
 # 🧠 How It Works
 1. PDF to Images
